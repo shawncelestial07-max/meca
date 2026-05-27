@@ -216,10 +216,15 @@ let time = 0;
 function spawn(){
   const keys = Object.keys(recipes);
 
+  const name = names[Math.floor(Math.random()*names.length)];
+
+  const avatars = ["☕","🙂","😄","🧑‍🍳","👩‍🍳"];
+
   customer = {
-    name: names[Math.floor(Math.random()*names.length)],
+    name: name,
     order: keys[Math.floor(Math.random()*keys.length)],
-    time: 18
+    time: 18,
+    avatar: avatars[Math.floor(Math.random()*avatars.length)]
   };
 
   build = [];
