@@ -3,90 +3,139 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Perfect Brew ☕</title>
+<title>Coffee Barista Game ☕</title>
 
 <style>
-  body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: radial-gradient(circle at top, #3b2a22, #1a120f);
+  body{
+    margin:0;
     font-family: Arial, sans-serif;
-    color: #fff;
+    background: radial-gradient(circle at top, #2b1b14, #120b08);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
   }
 
-  .game {
-    text-align: center;
-    width: 360px;
+  .game{
+    width:520px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:16px;
+    padding:20px;
+    backdrop-filter: blur(10px);
   }
 
-  h1 {
-    margin-bottom: 5px;
+  h1{
+    text-align:center;
+    margin-bottom:10px;
   }
 
-  .bar {
-    width: 320px;
-    height: 34px;
-    background: #5a3a2a;
-    border-radius: 20px;
-    margin: 25px auto;
-    position: relative;
-    overflow: hidden;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+  .layout{
+    display:flex;
+    gap:15px;
   }
 
-  .zones {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
+  .main{
+    flex:2;
   }
 
-  .zone {
-    flex: 1;
+  .recipes{
+    flex:1;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:12px;
+    padding:10px;
+    font-size:12px;
   }
 
-  .bad { background: rgba(255, 80, 80, 0.15); }
-  .ok { background: rgba(255, 200, 80, 0.15); }
-  .good { background: rgba(80, 255, 120, 0.18); }
-
-  .needle {
-    width: 4px;
-    height: 100%;
-    background: #fff;
-    position: absolute;
-    top: 0;
-    left: 0;
-    box-shadow: 0 0 8px #fff;
+  .recipes h3{
+    margin:0 0 8px 0;
+    font-size:13px;
+    text-align:center;
   }
 
-  button {
-    margin-top: 10px;
-    padding: 10px 22px;
-    font-size: 16px;
-    background: #c96a2b;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    color: white;
-    transition: 0.2s;
+  .recipe{
+    margin-bottom:10px;
+    padding:8px;
+    border-radius:8px;
+    background:rgba(255,255,255,0.05);
   }
 
-  button:hover {
-    background: #a8551f;
+  .customer{
+    background:rgba(255,255,255,0.06);
+    padding:12px;
+    border-radius:12px;
+    margin-bottom:10px;
+    border-left:4px solid #c96a2b;
+  }
+  
+
+  .avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#c96a2b,#8b5e3c);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+    margin-bottom:6px;
   }
 
-  #result {
-    margin-top: 15px;
-    font-size: 18px;
-    min-height: 24px;
+  .bubble{
+    font-size:13px;
+    color:#c49a6c;
   }
 
-  .hint {
-    font-size: 13px;
-    opacity: 0.7;
+  .ingredients{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:10px;
+  }
+
+  button{
+    flex:1;
+    min-width:48%;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:#c96a2b;
+    color:white;
+    font-size:12px;
+    transition:0.2s;
+  }
+
+  button:hover{
+    background:#a8551f;
+  }
+
+  .serve{
+    width:100%;
+    margin-top:10px;
+    background:#8b5e3c;
+  }
+
+  .serve:hover{
+    background:#6f452c;
+  }
+
+  .log{
+    text-align:center;
+    margin-top:10px;
+    font-size:13px;
+    min-height:18px;
+    opacity:0.85;
+  }
+
+  .stats{
+    display:flex;
+    justify-content:space-between;
+    font-size:14px;
+    margin-bottom:10px;
+    opacity:0.9;
   }
 </style>
 </head>
@@ -94,75 +143,166 @@
 <body>
 
 <div class="game">
-  <h1>☕ Perfect Brew</h1>
-  <div class="hint">Stop the needle in the green zone!</div>
 
-  <div class="bar">
-    <div class="zones">
-      <div class="zone bad"></div>
-      <div class="zone ok"></div>
-      <div class="zone good"></div>
-    </div>
-    <div class="needle" id="needle"></div>
+  <h1>MakeAcoffee ☕ </h1>
+
+  <div class="stats">
+    <div>Score: <span id="score">0</span></div>
+    <div>Time: <span id="time">0</span></div>
   </div>
 
-  <button onclick="brew()">BREW</button>
-  <div id="result">Score: -</div>
+  <div class="layout">
+
+    <!-- MAIN GAME -->
+    <div class="main">
+
+      <div id="customerArea"></div>
+
+      <div class="ingredients">
+
+        <button onclick="add('Espresso')">Espresso</button>
+        <button onclick="add('Milk')">Milk</button>
+        <button onclick="add('Foam')">Foam</button>
+        <button onclick="add('Caramel')">Caramel</button>
+
+      </div>
+
+      <button class="serve" onclick="serve()">Serve Drink</button>
+
+      <div class="log" id="log">Build the coffee ☕</div>
+
+    </div>
+
+    <!-- RECIPE BOOK -->
+    <div class="recipes">
+      <h3>📖 Recipe Book</h3>
+
+      <div class="recipe">
+        ☕ Latte<br>
+        Espresso + Milk
+      </div>
+
+      <div class="recipe">
+        ☕ Cappuccino<br>
+        Espresso + Milk + Foam
+      </div>
+
+      <div class="recipe">
+        ☕ Caramel Macchiato<br>
+        Espresso + Milk + Foam + Caramel
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
 
 <script>
-const needle = document.getElementById("needle");
-const result = document.getElementById("result");
 
-let pos = 0;
-let dir = 1;
-let running = true;
-const speed = 3; // tweak difficulty
+const recipes = {
+  "Latte": ["Espresso","Milk"],
+  "Cappuccino": ["Espresso","Milk","Foam"],
+  "Caramel Macchiato": ["Espresso","Milk","Foam","Caramel"]
+};
 
-function animate() {
-  if (running) {
-    pos += dir * speed;
+const names = ["Alex","Mia","Liam","Sofia","Noah","Emma"];
 
-    if (pos >= 316) dir = -1;
-    if (pos <= 0) dir = 1;
+let customer = null;
+let build = [];
+let score = 0;
+let time = 0;
 
-    needle.style.left = pos + "px";
-  }
+function spawn(){
+  const keys = Object.keys(recipes);
 
-  requestAnimationFrame(animate);
+  customer = {
+    name: names[Math.floor(Math.random()*names.length)],
+    order: keys[Math.floor(Math.random()*keys.length)],
+    time: 18
+  };
+
+  build = [];
+  updateUI();
 }
 
-function brew() {
-  running = false;
+function add(item){
+  build.push(item);
+  log("Added: " + item);
+}
 
-  let text = "";
-  let color = "";
+function serve(){
+  if(!customer) return;
 
-  // zones:
-  // 0–105 = bad
-  // 106–210 = ok
-  // 211–316 = perfect
+  const correct =
+    JSON.stringify(build) === JSON.stringify(recipes[customer.order]);
 
-  if (pos > 210 && pos < 316) {
-    text = "Perfect Brew ☕🔥";
-    color = "#4cff88";
-  } else if (pos > 105) {
-    text = "Good Brew 👍";
-    color = "#ffd166";
+  if(correct){
+    score += 10;
+    log("✅ Perfect drink!");
   } else {
-    text = "Burnt Coffee ☠️";
-    color = "#ff6b6b";
+    score -= 5;
+    log("❌ Wrong recipe!");
   }
 
-  result.textContent = text;
-  result.style.color = color;
+  customer = null;
+  build = [];
 
-  setTimeout(() => {
-    running = true;
-  }, 900);
+  setTimeout(spawn, 1200);
+  updateUI();
 }
 
-animate();
+function updateUI(){
+  const area = document.getElementById("customerArea");
+
+  if(customer){
+    area.innerHTML = `
+  <div class="customer">
+    
+    <div class="customer-left">
+      <div class="avatar-text">👤 ${customer.name}</div>
+      <div class="bubble">“I want a ${customer.order} ☕”</div>
+    </div>
+
+    <div class="customer-right">
+      <div class="avatar-big">${customer.avatar}</div>
+    </div>
+
+  </div>
+`;
+
+  } else {
+    area.innerHTML = `<div class="customer">Waiting for customer...</div>`;
+  }
+
+  document.getElementById("score").textContent = score;
+  document.getElementById("time").textContent = time;
+}
+
+function tick(){
+  time++;
+
+  if(customer){
+    customer.time--;
+
+    if(customer.time <= 0){
+      log("⛔ Customer left!");
+      customer = null;
+      build = [];
+      setTimeout(spawn, 1200);
+    }
+  }
+
+  updateUI();
+}
+
+function log(msg){
+  document.getElementById("log").textContent = msg;
+}
+
+spawn();
+setInterval(tick, 1000);
+
 </script>
 
 </body>
