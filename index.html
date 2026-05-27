@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Meca Grace G. Tabligan | Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+  html, body{
+  height:100%;
+  overflow:hidden;
+}
+
+body.portfolio-open{
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+html, body{
+  overflow-x: hidden;
+}
+
+/* GLOBAL */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  color:#3b2a1a;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f8f4ef,
+      #f1e6db,
+      #f7f2ec,
+      #efe2d4
+    );
+
+  background-size:400% 400%;
+
+  animation:bgShift 18s ease infinite;
+}
+
+@keyframes bgShift{
+
+  0%{
+    background-position:0% 50%;
+  }
+
+  50%{
+    background-position:100% 50%;
+  }
+
+  100%{
+    background-position:0% 50%;
+  }
+
+}
+
+#game-section{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  padding:20px 0;
+
+  background:transparent;
+  border:none;
+  box-shadow:none;
+  backdrop-filter:none;
+}
+
+.game-container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  gap:10px;
+}
+
+.game-btn{
+  width:58px;
+  height:58px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.08);
+
+  border:1px solid rgba(139,94,60,0.4);
+
+  color:#8b5e3c;
+
+  font-size:22px;
+
+  text-decoration:none;
+
+  transition:0.35s ease;
+}
+
+.game-btn:hover{
+  background:#8b5e3c;
+  color:white;
+
+  transform:translateY(-4px);
+}
+
+.exit-btn{
+  position:fixed;
+  top:15px;
+  right:15px;
+
+  width:40px;
+  height:40px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(139,94,60,0.4);
+
+  color:#8b5e3c;
+  font-size:16px;
+
+  text-decoration:none;
+
+  backdrop-filter:blur(10px);
+
+  transition:0.3s ease;
+
+  z-index:999;
+}
+
+.exit-btn:hover{
+  background:#8b5e3c;
+  color:white;
+  transform:scale(1.1);
+}
+
+.game-label{
+  font-size:11px;
+  color:#8b5e3c;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.social-btn .icon{
+  margin-right:6px;
+  font-size:14px;
+}
+
+.social-btn i{
+  margin-right:8px;
+  font-size:14px;
+}
+
+.email-btn{
+  display:inline-block;
+  margin-top:15px;
+  padding:12px 18px;
+
+  border:1px solid rgba(139,94,60,0.6);
+  border-radius:8px;
+
+  color:#8b5e3c;
+  text-decoration:none;
+
+  font-size:13px;
+  font-family:'Inter',sans-serif;
+
+  background:rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+
+  transition:0.3s ease;
+}
+
+.email-btn:hover{
+  background:#8b5e3c;
+  color:white;
+  box-shadow:0 0 20px rgba(139,94,60,0.4);
+  transform:translateY(-3px);
+}
+
+/* INTRO SCREEN */
+#loadingScreen{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+
+  background:#f4ece4;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:15px;
+
+  z-index:1000;
+
+  transition:opacity 1s ease;
+}
+
+.intro-sub{
+  margin-top:20px;
+
+  font-size:0.95rem;
+  font-weight:500;
+  letter-spacing:2px;
+  text-transform:uppercase;
+
+  color:#9b7b60;
+
+  opacity:0;
+
+  animation:fadeSub 1s forwards;
+  animation-delay:3s;
+}
+
+@keyframes fadeSub{
+  to{
+    opacity:1;
+  }
+}
+
+/* MINIMAL INTRO TEXT */
+.intro-word{
+  font-family:'Inter',sans-serif;
+
+  font-size:clamp(2.2rem,5vw,4rem);
+  font-weight:600;
+  letter-spacing:-1px;
+
+  color:#6b4a32;
+
+  opacity:0;
+  transform:translateY(20px);
+
+  animation:wordReveal 0.8s forwards;
+}
+
+/* DELAYS */
+.intro-word:nth-child(1){
+  animation-delay:0.3s;
+}
+
+.intro-word:nth-child(2){
+  animation-delay:1.2s;
+}
+
+.intro-word:nth-child(3){
+  animation-delay:2.1s;
+}
+
+@keyframes wordReveal{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* FLOATING ORBS */
+.bg-orb{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(80px);
+  z-index:-2;
+  opacity:0.35;
+  animation:floatOrb 18s ease-in-out infinite;
+}
+
+/* ORB 1 */
+.orb1{
+  width:320px;
+  height:320px;
+
+  background:#c49a6c;
+
+  top:10%;
+  left:5%;
+}
+
+/* ORB 2 */
+.orb2{
+  width:260px;
+  height:260px;
+
+  background:#d8b08c;
+
+  bottom:10%;
+  right:5%;
+
+  animation-delay:4s;
+}
+
+/* ORB 3 */
+.orb3{
+  width:220px;
+  height:220px;
+
+  background:#8b5e3c;
+
+  top:50%;
+  left:50%;
+
+  animation-delay:8s;
+}
+
+@keyframes floatOrb{
+
+  0%{
+    transform:translate(0,0) scale(1);
+  }
+
+  25%{
+    transform:translate(30px,-40px) scale(1.05);
+  }
+
+  50%{
+    transform:translate(-20px,20px) scale(0.95);
+  }
+
+  75%{
+    transform:translate(40px,30px) scale(1.02);
+  }
+
+  100%{
+    transform:translate(0,0) scale(1);
+  }
+
+}
+
+.resume-container{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-top:20px;
+}
+
+.resume-btn{
+  padding:10px 20px;   /* smaller button */
+  font-size:12px;      /* smaller text */
+
+  border:2px solid #8b5e3c;
+  background:transparent;
+  color:#8b5e3c;
+
+  font-family:'Inter',sans-serif;
+  font-weight: 500;
+  letter-spacing:1px;
+
+  text-decoration:none;
+  border-radius:8px;
+
+  transition:0.4s ease;
+  text-align:center;
+}
+
+.resume-btn:hover{
+  background:#8b5e3c;
+  color:white;
+  box-shadow:0 0 20px #8b5e3c;
+  transform:translateY(-3px);
+}
+
+/* HEADER */
+header{
+  min-height:100vh;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+
+  gap:18px;
+
+  padding:0 20px;
+}
+
+header.hidden{
+  opacity:0;
+  pointer-events:none;
+  visibility:hidden;
+  position:absolute;
+}
+
+header h1{
+  font-family:'Inter',sans-serif;
+  font-weight: 500;
+  font-size:clamp(2.8rem,7vw,4rem);
+
+  background:linear-gradient(
+    270deg,
+    #5c4033,
+    #b08968,
+    #5c4033
+  );
+
+  background-size:400% 400%;
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  animation:gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+header p{
+  font-size:1.2rem;
+  color:#a0704d;
+}
+
+/* BUTTON */
+.btn{
+  padding:10px 22px;
+  border-radius:10px;
+
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(196,154,108,0.4);
+
+  color:#8b5e3c;
+
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:0.5px;
+
+  cursor:pointer;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  transition:all 0.3s ease;
+
+  font-family:'Inter',sans-serif;
+
+  box-shadow:0 4px 20px rgba(0,0,0,0.05);
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+
+  background:rgba(196,154,108,0.12);
+  border:1px solid rgba(196,154,108,0.7);
+
+  box-shadow:
+    0 0 20px rgba(196,154,108,0.25),
+    0 10px 30px rgba(0,0,0,0.08);
+
+  color:#8b5e3c;
+}
+
+.btn:active{
+  transform:scale(0.97);
+}
+
+.btn span{
+  transform:rotate(-45deg);
+  display:inline-block;
+  font-family:'Inter',sans-serif;
+  font-weight: 500;
+  font-size:10px;
+  letter-spacing:1px;
+}
+
+/* SECTIONS */
+section{
+
+  padding:70px 40px;
+  max-width:900px;
+  margin:60px auto;
+
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(196,154,108,0.2);
+
+  border-radius:18px;
+
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+
+  box-shadow:0 10px 40px rgba(0,0,0,0.05);
+
+  opacity:0;
+  transform:translateY(40px);
+
+  pointer-events:none;
+
+  transition:0.7s ease;
+
+}
+
+section.active{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+section{
+  opacity:0;
+  transform:translateY(40px);
+  pointer-events:none;
+}
+
+section:hover{
+  border-color:rgba(196,154,108,0.35);
+  box-shadow:0 0 40px rgba(196,154,108,0.08);
+}
+
+section{
+  transition:0.8s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+section{
+  cursor:pointer;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+section.active:hover{
+  transform: translateY(-6px) scale(1.01);
+}
+
+section.zoomed{
+  transform: scale(1.03);
+  z-index: 10;
+  position: relative;
+
+  transform-origin: center;
+}
+
+.bg-orb{
+  pointer-events: none;
+}
+
+h2{
+  margin-bottom:25px;
+  color:#8b5e3c;
+
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  letter-spacing:2px;
+  font-size:1.1rem;
+
+  text-transform:uppercase;
+}
+
+/* DIVIDER */
+.med-divider{
+  width:100%;
+  height:40px;
+  position:relative;
+  overflow:hidden;
+  margin:20px 0;
+}
+
+.med-divider::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:0;
+  width:100%;
+  height:2px;
+  background:#c49a6c;
+}
+
+.med-divider::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+
+  background:inherit;
+
+  padding:0 15px;
+
+  color:#8b5e3c;
+  font-size:18px;
+}
+
+/* ABOUT */
+.about-container{
+  display:flex;
+  align-items:center;
+  gap:30px;
+  flex-wrap:wrap;
+}
+
+.about-image img{
+  width:250px;
+  height:250px;
+  object-fit:cover;
+  border-radius:20px;
+  border:4px solid #8b5e3c;
+  box-shadow:0 0 25px rgba(139,94,60,0.4);
+  transition:0.4s;
+}
+
+.about-image img:hover{
+  transform:scale(1.03);
+  box-shadow:0 0 40px #8b5e3c;
+}
+
+.about-text{
+  flex:1;
+  min-width:250px;
+  line-height:1.7;
+}
+
+/* CARDS */
+.card{
+  margin-bottom:20px;
+  padding:24px;
+
+  background:rgba(255,255,255,0.08);
+
+  border:1px solid rgba(92,64,51,0.12);
+
+  border-radius:18px;
+
+  backdrop-filter: blur(10px);
+
+  transition:
+  transform 0.35s ease,
+  box-shadow 0.35s ease,
+  border-color 0.35s ease;
+
+  box-shadow:
+    0 4px 20px rgba(0,0,0,0.04);
+}
+
+.card:hover{
+
+  transform:
+    translateY(-8px)
+    scale(1.015);
+
+  border-color:
+    rgba(196,154,108,0.45);
+
+  box-shadow:
+    0 0 25px rgba(196,154,108,0.12),
+    0 15px 45px rgba(0,0,0,0.10);
+
+}
+
+/* SKILLS */
+.skill{
+  margin-bottom:20px;
+}
+
+.skill-bar{
+  width:100%;
+  height:12px;
+  background:#e8d7c7;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.skill-fill{
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#c49a6c,#8b5e3c);
+  transition:2s;
+}
+
+/* SOCIAL */
+.social-links{
+  display:flex;
+  gap:20px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.social-btn{
+  padding:10px 18px;   /* smaller button */
+  font-size:12px;      /* smaller text */
+
+  border:2px solid #8b5e3c;
+  background:transparent;
+  color:#8b5e3c;
+
+  font-family:'Orbitron',sans-serif;
+  font-weight:600;
+  letter-spacing:1px;
+
+  text-decoration:none;
+  border-radius:8px;
+
+  transition:0.4s ease;
+  text-align:center;
+}
+
+.social-btn:hover{
+
+  background:#8b5e3c;
+
+  color:white;
+
+  box-shadow:0 0 20px #8b5e3c;
+
+  transform:translateY(-3px);
+
+}
+
+/* === EXPERIENCE FOCUS MODE === */
+
+/* blur everything when active */
+body.exp-focus section:not(#experience) {
+  filter: blur(4px);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* blur other cards inside experience */
+body.exp-focus #experience .card:not(.active-card) {
+  filter: blur(4px);
+  opacity: 0.3;
+  transform: scale(0.98);
+}
+
+/* focused card */
+#experience .card.active-card {
+  transform: scale(1.08);
+  z-index: 20;
+  position: relative;
+
+  background: rgba(255,255,255,0.15);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+/* MOBILE ONLY ADDITION */
+@media (max-width: 768px){
+
+  body{
+    overflow-x:hidden;
+  }
+
+  header h1{
+    font-size:2rem;
+  }
+
+  header p{
+    font-size:1rem;
+  }
+
+  section{
+    padding:40px 20px;
+    margin:30px 15px;
+  }
+
+  .about-container{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .about-image img{
+    width:180px;
+    height:180px;
+    animation:floatImage 6s ease-in-out infinite;
+  }
+
+  .resume-btn{
+  padding:8px 16px;
+  font-size:11px;
+}
+
+  @keyframes floatImage{
+
+  0%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-10px);
+  }
+
+  100%{
+    transform:translateY(0);
+  }
+
+}
+
+#showContent{
+  padding:7px 14px;
+  font-size:10px;
+
+  width:auto;
+  max-width:none;
+
+  margin-top:10px;
+}
+
+  .social-links{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.social-btn{
+  width: 100%;
+  max-width: 260px;
+  font-size: 11px;
+  padding: 8px 12px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+@media (max-width: 480px){
+
+  header h1{
+    font-size:1.8rem;
+  }
+
+  header p{
+    font-size:0.95rem;
+  }
+
+  .intro-word{
+    font-size:2rem;
+  }
+
+  .intro-sub{
+    font-size:0.75rem;
+  }
+
+  .about-image img{
+    width:150px;
+    height:150px;
+  }
+}
+
+#experience .card ul{
+  padding-left: 18px;
+  margin-top: 8px;
+}
+
+#experience .card ul li{
+  list-style-position: outside;
+  padding-left: 4px;
+  margin-bottom: 6px;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div id="loadingScreen">
+  <span class="intro-word">Trusted</span>
+  <span class="intro-word">Service</span>
+  <span class="intro-word">Expert</span>
+  <p class="intro-sub">
+  Client-Focused Service
+  </p>
+</div>
+
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+
+<header id="mainHeader">
+
+  <h1>Meca Grace G. Tabligan</h1>
+  <p>Customer Support Specialist</p>
+
+  <button class="btn" id="showContent">
+    View Portfolio
+  </button>
+</header>
+
+  <div id="portfolioContainer"></div>
+
+<!-- ABOUT -->
+<section id="about">
+<h2>About Me</h2>
+<div class="med-divider"></div>
+
+<div class="about-container">
+  <div class="about-image">
+    <img src="mecca.jpg" alt="Meca Grace Tabligan">
+  </div>
+
+  <div class="about-text">
+    <h3>Meca Grace Tabligan</h3>
+    <p>
+      Experienced customer service, technical support, and sales professional skilled in billing support, technical troubleshooting, and loan assistance. Known for fast, reliable solutions, strong communication, and high customer satisfaction.
+    </p>
+  </div>
+</div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+<h2>Experience</h2>
+<div class="med-divider"></div>
+
+<div class="card">
+  <h3>COMCAST | Billing - Customer Service Representative (Sales)</h3>
+  <span>Top Agent - Outstanding Customer Service & Sales Performance</span>
+  <ul>
+    <li>Assisted customers over the phone regarding billing inquiries, payments, account statements, refunds, and service-related concerns.</li>
+    <li>Explained charges and account details while ensuring customer understanding and satisfaction.</li>
+    <li>Identified customer needs and promoted relevant products and services to drive sales.</li>
+    <li>Processed billing adjustments, payment arrangements, and refund requests efficiently.</li>
+    <li>Maintained high-quality customer service while meeting sales and performance targets.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>COMCAST | Technical Support Specialist</h3>
+  <span>Recognized Top Agent - Support Team</span>
+  <ul>
+    <li>Provided advanced technical support for internet, cable, and phone services.</li>
+    <li>Served as a floor support specialist assisting team members with complex customer concerns.</li>
+    <li>Handled supervisor calls, escalated cases, and irate customers professionally.</li>
+    <li>Performed troubleshooting over the phone and guided customers through technical solutions.</li>
+    <li>Coordinated technician visits and service appointments when necessary.</li>
+    <li>Created service tickets for equipment replacements, installations, and account-related adjustments.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>SERVICE FIRST | Loan Officer Specialist</h3>
+  <span>Sales & Loan Processing Specialist</span>
+  <ul>
+    <li>Assisted clients in identifying loan products that best suited their financial needs and goals.</li>
+    <li>Conducted outbound and inbound communications to generate leads and increase loan applications.</li>
+    <li>Explained loan terms, interest rates, repayment options, and application requirements to prospective clients.</li>
+    <li>Achieved sales targets through effective loan product promotion and consultative selling.</li>
+    <li>Ensured compliance with company policies and lending regulations throughout the application process.</li>
+  </ul>
+</div>
+
+</section> 
+
+<section id="resume">
+<h2>Resume</h2>
+<div class="med-divider"></div>
+
+<div class="resume-container">
+  <a href="Rebecca-Resume.pdf" download class="resume-btn">
+    Download Resume (PDF)
+  </a>
+</div>
+
+</section>
+
+<!-- GAME BUTTON -->
+<section id="game-section">
+
+  <div class="game-container">
+
+    <a href="flappy-game.html"
+       class="game-btn">
+
+      <i class="fa-solid fa-gamepad"></i>
+
+    </a>
+
+    <p class="game-label">Play My Game</p>
+
+  </div>
+
+</section>
+
+<section id="skills">
+
+<section id="skills">
+<h2>Skills</h2>
+<div class="med-divider"></div>
+
+<div class="skill">
+  <p>Customer Support</p>
+  <div class="skill-bar">
+    <div class="skill-fill" data-width="95%"></div>
+  </div>
+</div>
+
+<div class="skill">
+  <p>Technical Support</p>
+  <div class="skill-bar">
+    <div class="skill-fill" data-width="85%"></div>
+  </div>
+</div>
+
+<div class="skill">
+  <p>Communication</p>
+  <div class="skill-bar">
+    <div class="skill-fill" data-width="90%"></div>
+  </div>
+</div>
+
+<div class="skill">
+  <p>Hospitality Service</p>
+  <div class="skill-bar">
+    <div class="skill-fill" data-width="88%"></div>
+  </div>
+</div>
+
+</section>
+
+<section id="socials">
+
+<h2>Connect with Me</h2>
+<div class="med-divider"></div>
+
+<div class="social-links">
+
+  <a href="https://www.facebook.com/meca.tabligan"
+     class="social-btn"
+     target="_blank">
+     <i class="fa-brands fa-facebook-f"></i> Facebook
+  </a>
+
+  <a href="mailto:mecagrace07@gmail.com"
+     class="social-btn">
+     <i class="fa-solid fa-envelope"></i> Email Me
+  </a>
+
+  <a href="https://www.instagram.com/makeagrace/"
+     class="social-btn"
+     target="_blank">
+     <i class="fa-brands fa-instagram"></i> Instagram
+  </a>
+
+</div>
+
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+<script>
+// intro loading screen
+window.addEventListener('load', ()=>{
+
+  const loadingScreen =
+    document.getElementById('loadingScreen');
+
+  setTimeout(()=>{
+    loadingScreen.style.opacity='0';
+
+    setTimeout(()=>{
+      loadingScreen.style.display='none';
+    },1000);
+
+  },6000);
+
+});
+
+document.getElementById("showContent").addEventListener("click", () => {
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+});
+
+document.querySelectorAll('section').forEach(sec => {
+
+  sec.addEventListener('click', () => {
+
+    document.querySelectorAll('section').forEach(s => {
+      s.classList.remove('zoomed');
+    });
+
+    sec.classList.add('zoomed');
+
+  });
+
+});
+
+// show sections
+const button = document.getElementById('showContent');
+const sections = document.querySelectorAll('section');
+const header = document.getElementById('mainHeader');
+
+button.addEventListener('click', ()=>{
+
+  document.body.classList.add('portfolio-open');
+
+  header.classList.add('hidden');
+
+  sections.forEach((sec,i)=>{
+
+    setTimeout(()=>{
+
+      sec.classList.add('active');
+
+    }, i * 200);
+
+  });
+
+  setTimeout(animateSkills, 1000);
+
+});
+
+// skills animation
+function animateSkills(){
+  document.querySelectorAll('.skill-fill').forEach(bar=>{
+    bar.style.width = bar.dataset.width;
+  });
+}
+
+const experienceCards = document.querySelectorAll("#experience .card");
+
+// click card → focus mode
+experienceCards.forEach(card => {
+  card.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    // remove previous focus
+    experienceCards.forEach(c => c.classList.remove("active-card"));
+
+    // set new focus
+    card.classList.add("active-card");
+
+    // enable blur mode
+    document.body.classList.add("exp-focus");
+  });
+});
+
+// click outside → reset
+document.addEventListener("click", () => {
+  document.body.classList.remove("exp-focus");
+  experienceCards.forEach(c => c.classList.remove("active-card"));
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Perfect Brew ☕</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at top, #3b2a22, #1a120f);
+    font-family: Arial, sans-serif;
+    color: #fff;
+  }
+
+  .game {
+    text-align: center;
+    width: 360px;
+  }
+
+  h1 {
+    margin-bottom: 5px;
+  }
+
+  .bar {
+    width: 320px;
+    height: 34px;
+    background: #5a3a2a;
+    border-radius: 20px;
+    margin: 25px auto;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+  }
+
+  .zones {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+
+  .zone {
+    flex: 1;
+  }
+
+  .bad { background: rgba(255, 80, 80, 0.15); }
+  .ok { background: rgba(255, 200, 80, 0.15); }
+  .good { background: rgba(80, 255, 120, 0.18); }
+
+  .needle {
+    width: 4px;
+    height: 100%;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 0 0 8px #fff;
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 10px 22px;
+    font-size: 16px;
+    background: #c96a2b;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    transition: 0.2s;
+  }
+
+  button:hover {
+    background: #a8551f;
+  }
+
+  #result {
+    margin-top: 15px;
+    font-size: 18px;
+    min-height: 24px;
+  }
+
+  .hint {
+    font-size: 13px;
+    opacity: 0.7;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="game">
+  <h1>☕ Perfect Brew</h1>
+  <div class="hint">Stop the needle in the green zone!</div>
+
+  <div class="bar">
+    <div class="zones">
+      <div class="zone bad"></div>
+      <div class="zone ok"></div>
+      <div class="zone good"></div>
+    </div>
+    <div class="needle" id="needle"></div>
+  </div>
+
+  <button onclick="brew()">BREW</button>
+  <div id="result">Score: -</div>
+</div>
+
+<script>
+const needle = document.getElementById("needle");
+const result = document.getElementById("result");
+
+let pos = 0;
+let dir = 1;
+let running = true;
+const speed = 3; // tweak difficulty
+
+function animate() {
+  if (running) {
+    pos += dir * speed;
+
+    if (pos >= 316) dir = -1;
+    if (pos <= 0) dir = 1;
+
+    needle.style.left = pos + "px";
+  }
+
+  requestAnimationFrame(animate);
+}
+
+function brew() {
+  running = false;
+
+  let text = "";
+  let color = "";
+
+  // zones:
+  // 0–105 = bad
+  // 106–210 = ok
+  // 211–316 = perfect
+
+  if (pos > 210 && pos < 316) {
+    text = "Perfect Brew ☕🔥";
+    color = "#4cff88";
+  } else if (pos > 105) {
+    text = "Good Brew 👍";
+    color = "#ffd166";
+  } else {
+    text = "Burnt Coffee ☠️";
+    color = "#ff6b6b";
+  }
+
+  result.textContent = text;
+  result.style.color = color;
+
+  setTimeout(() => {
+    running = true;
+  }, 900);
+}
+
+animate();
+</script>
+
+</body>
+</html>
