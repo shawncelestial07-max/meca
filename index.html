@@ -279,76 +279,64 @@ body{
   }
 }
 
-/* FLOATING ORBS */
-.bg-orb{
+/* COFFEE BEANS */
+.coffee-bean{
   position:fixed;
-  border-radius:50%;
-  filter:blur(80px);
+  width:18px;
+  height:28px;
+
+  border-radius:60% 40% 60% 40%;
+  
+  /* coffee bean gradient */
+  background: linear-gradient(
+  145deg,
+  #6b4a32,
+  #8b5e3c,
+  #4a2f1f
+);
+
+  box-shadow:
+    inset -2px -2px 4px rgba(0,0,0,0.35),
+    inset 2px 2px 4px rgba(255,255,255,0.08),
+    0 8px 15px rgba(0,0,0,0.25);
+
+  opacity:0.6;
   z-index:-2;
-  opacity:0.35;
-  animation:floatOrb 18s ease-in-out infinite;
+
+  animation:floatBean 14s linear infinite;
 }
 
-/* ORB 1 */
-.orb1{
-  width:320px;
-  height:320px;
-
-  background:#c49a6c;
-
-  top:10%;
-  left:5%;
-}
-
-/* ORB 2 */
-.orb2{
-  width:260px;
-  height:260px;
-
-  background:#d8b08c;
-
-  bottom:10%;
-  right:5%;
-
-  animation-delay:4s;
-}
-
-/* ORB 3 */
-.orb3{
-  width:220px;
-  height:220px;
-
-  background:#8b5e3c;
-
+.coffee-bean::after{
+  content:"";
+  position:absolute;
   top:50%;
   left:50%;
+  transform:translate(-50%,-50%);
 
-  animation-delay:8s;
+  width:2px;
+  height:60%;
+
+  background:rgba(20,10,5,0.5);
+  border-radius:2px;
 }
 
-@keyframes floatOrb{
-
+@keyframes floatBean{
   0%{
-    transform:translate(0,0) scale(1);
+    transform:translateY(100vh) translateX(0) rotate(0deg);
+    opacity:0;
   }
-
-  25%{
-    transform:translate(30px,-40px) scale(1.05);
+  20%{
+    opacity:0.6;
   }
-
   50%{
-    transform:translate(-20px,20px) scale(0.95);
+    transform:translateY(50vh) translateX(40px) rotate(180deg);
   }
-
-  75%{
-    transform:translate(40px,30px) scale(1.02);
-  }
-
   100%{
-    transform:translate(0,0) scale(1);
+    transform:translateY(-10vh) translateX(-30px) rotate(360deg);
+    opacity:0;
   }
-
 }
+
 
 .resume-container{
   display:flex;
@@ -872,23 +860,26 @@ body.exp-focus #experience .card:not(.active-card) {
 
 <body>
 
+<div class="coffee-bean" style="left:10%; animation-delay:0s;"></div>
+<div class="coffee-bean" style="left:25%; animation-delay:2s;"></div>
+<div class="coffee-bean" style="left:40%; animation-delay:4s;"></div>
+<div class="coffee-bean" style="left:60%; animation-delay:1s;"></div>
+<div class="coffee-bean" style="left:75%; animation-delay:3s;"></div>
+<div class="coffee-bean" style="left:90%; animation-delay:5s;"></div>
+
 <div id="loadingScreen">
   <span class="intro-word">Trusted</span>
   <span class="intro-word">Service</span>
   <span class="intro-word">Expert</span>
   <p class="intro-sub">
-  Client-Focused Service
+  Client-Focused
   </p>
 </div>
-
-<div class="bg-orb orb1"></div>
-<div class="bg-orb orb2"></div>
-<div class="bg-orb orb3"></div>
 
 <header id="mainHeader">
 
   <h1>Meca Grace G. Tabligan</h1>
-  <p>Customer Support Specialist</p>
+  <p>Professional Portfolio</p>
 
   <button class="btn" id="showContent">
     View Portfolio
@@ -922,50 +913,43 @@ body.exp-focus #experience .card:not(.active-card) {
 <div class="med-divider"></div>
 
 <div class="card">
-  <h3>COMCAST | Billing - Customer Service Representative (Sales)</h3>
-  <span>Top Agent - Outstanding Customer Service & Sales Performance</span>
+  <h3>COMCAST | Billing & Customer Service Representative (Sales)</h3>
+  <span>Top Agent</span>
   <ul>
-    <li>Assisted customers over the phone regarding billing inquiries, payments, account statements, refunds, and service-related concerns.</li>
-    <li>Explained charges and account details while ensuring customer understanding and satisfaction.</li>
-    <li>Identified customer needs and promoted relevant products and services to drive sales.</li>
-    <li>Processed billing adjustments, payment arrangements, and refund requests efficiently.</li>
-    <li>Maintained high-quality customer service while meeting sales and performance targets.</li>
+    <li>Handled billing inquiries, payments, refunds, and account support via phone.</li>
+    <li>Resolved issues while maintaining high customer satisfaction.</li>
+    <li>Promoted products and services based on customer needs to drive sales.</li>
   </ul>
 </div>
 
 <div class="card">
   <h3>COMCAST | Technical Support Specialist</h3>
-  <span>Recognized Top Agent - Support Team</span>
+  <span>Top Agent</span>
   <ul>
-    <li>Provided advanced technical support for internet, cable, and phone services.</li>
-    <li>Served as a floor support specialist assisting team members with complex customer concerns.</li>
-    <li>Handled supervisor calls, escalated cases, and irate customers professionally.</li>
-    <li>Performed troubleshooting over the phone and guided customers through technical solutions.</li>
-    <li>Coordinated technician visits and service appointments when necessary.</li>
-    <li>Created service tickets for equipment replacements, installations, and account-related adjustments.</li>
+    <li>Provided technical support for internet, cable, and phone services.</li>
+    <li>Resolved complex issues and assisted escalated customer concerns.</li>
+    <li>Supported teammates and coordinated service appointments and tickets.</li>
   </ul>
 </div>
 
 <div class="card">
   <h3>SERVICE FIRST | Loan Officer Specialist</h3>
-  <span>Sales & Loan Processing Specialist</span>
+  <span>Sales & Loan Processing</span>
   <ul>
-    <li>Assisted clients in identifying loan products that best suited their financial needs and goals.</li>
-    <li>Conducted outbound and inbound communications to generate leads and increase loan applications.</li>
-    <li>Explained loan terms, interest rates, repayment options, and application requirements to prospective clients.</li>
-    <li>Achieved sales targets through effective loan product promotion and consultative selling.</li>
-    <li>Ensured compliance with company policies and lending regulations throughout the application process.</li>
+    <li>Matched clients with suitable loan products and explained terms clearly.</li>
+    <li>Managed leads and supported loan application processing.</li>
+    <li>Ensured compliance with lending policies and procedures.</li>
   </ul>
 </div>
 
-</section> 
+</section>
 
 <section id="resume">
 <h2>Resume</h2>
 <div class="med-divider"></div>
 
 <div class="resume-container">
-  <a href="Rebecca-Resume.pdf" download class="resume-btn">
+  <a href="Resume Link HERE" download class="resume-btn">
     Download Resume (PDF)
   </a>
 </div>
